@@ -1,4 +1,4 @@
-package com.example.week1.ui.dashboard
+package com.example.week1.ui.images
 
 import android.os.Bundle
 import android.view.LayoutInflater

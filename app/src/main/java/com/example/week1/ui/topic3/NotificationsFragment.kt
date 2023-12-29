@@ -1,4 +1,4 @@
-package com.example.week1.ui.notifications
+package com.example.week1.ui.topic3
 
 import android.os.Bundle
 import android.view.LayoutInflater
