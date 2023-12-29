@@ -1,4 +1,4 @@
-package com.example.week1.ui.home
+package com.example.week1.ui.contact
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
