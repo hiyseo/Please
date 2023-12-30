@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.week1.R
+
 import com.example.week1.databinding.FragmentDashboardBinding
 
 class ImageFragment : Fragment() {
@@ -17,33 +19,6 @@ class ImageFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-//    private var recyclerView: RecyclerView? = null
-//    private var recyclerViewPhotoAdapter : RecyclerViewPhotoAdapter? = null
-//    private var photoList = mutableListOf<Photo>()
-//
-//    private fun preparePhotoListData() {
-//        var photo = Photo("dinner", R.drawable.todaydinner)
-//        photoList.add(photo)
-//        photo = Photo("dinner", R.drawable.todaydinner)
-//        photoList.add(photo)
-//        photo = Photo("dinner", R.drawable.todaydinner)
-//        photoList.add(photo)
-//        photo = Photo("dinner", R.drawable.todaydinner)
-//        photoList.add(photo)
-//        photo = Photo("dinner", R.drawable.todaydinner)
-//        photoList.add(photo)
-//        photo = Photo("dinner", R.drawable.todaydinner)
-//        photoList.add(photo)
-//        photo = Photo("dinner", R.drawable.todaydinner)
-//        photoList.add(photo)
-//        photo = Photo("dinner", R.drawable.todaydinner)
-//        photoList.add(photo)
-//        photo = Photo("dinner", R.drawable.todaydinner)
-//        photoList.add(photo)
-//
-//        recyclerViewPhotoAdapter!!.notifyDataSetChanged()
-//
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,21 +26,10 @@ class ImageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-//        photoList = ArrayList()
-//
-//        recyclerView = findViewById<View>(R.id.ivPhotoImage) as RecyclerView
-//        recyclerViewPhotoAdapter = recyclerViewPhotoAdapter(this @DashboardFragment, photoList)
-//        val layoutManager : RecyclerView.LayoutManager = GridLayoutManager(this, 2)
-//        recyclerView!!.layoutManager = layoutManager
-//        recyclerView!!.adapter = recyclerViewPhotoAdapter
-//
-//        preparePhotoListData()
-
-//        val dashboardViewModel =
-//            ViewModelProvider(this).get(DashboardViewModel::class.java)
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
 
 //        val photoList = ArrayList<Photo>()
 //        val recyclerViewPhotoAdapter = Photo(photoList)
