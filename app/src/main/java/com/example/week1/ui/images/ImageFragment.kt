@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.week1.R
+
 import com.example.week1.databinding.FragmentDashboardBinding
 
 class ImageFragment : Fragment() {
@@ -17,23 +19,41 @@ class ImageFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(ImageViewModel::class.java)
+
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
+//        val photoList = ArrayList<Photo>()
+//        val recyclerViewPhotoAdapter = Photo(photoList)
+//
+//        binding.
+
+        val photoList = mutableListOf<Photo>()
+        photoList.add(Photo("dinner", R.drawable.todaydinner))
+        photoList.add(Photo("dinner", R.drawable.todaydinner))
+        photoList.add(Photo("dinner", R.drawable.todaydinner))
+        photoList.add(Photo("dinner", R.drawable.todaydinner))
+        photoList.add(Photo("dinner", R.drawable.todaydinner))
+        photoList.add(Photo("dinner", R.drawable.todaydinner))
+        photoList.add(Photo("dinner", R.drawable.todaydinner))
+
+        val recyclerView = binding.recyclerView
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        val adapter = RecyclerViewPhotoAdapter(photoList)
+        recyclerView.adapter = adapter
+
         return root
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
