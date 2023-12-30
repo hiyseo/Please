@@ -1,20 +1,15 @@
-package com.example.week1.ui.dashboard
+package com.example.week1.ui.images
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.week1.R
 import com.example.week1.databinding.FragmentDashboardBinding
 
-class DashboardFragment : Fragment() {
+class ImageFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
 

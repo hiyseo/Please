@@ -1,15 +1,12 @@
-package com.example.week1.ui.dashboard
+package com.example.week1.ui.images
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.week1.MainActivity
 import com.example.week1.R
 
 //class RecyclerViewPhotoAdapter constructor(private val getActivity: MainActivity, private val photoList : List<Photo>) :
