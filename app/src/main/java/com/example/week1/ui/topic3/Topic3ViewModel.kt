@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class Topic3ViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "자유주제"
