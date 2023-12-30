@@ -88,7 +88,7 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
             profile.setImageResource(item.profile)
             name.text = item.name
             number.text = item.number
-            favorite.setImageResource(if (item.isFavorite) R.drawable.star_filled else R.drawable.star_empty)
+            favorite.setImageResource(if (item.isFavorite) R.drawable.check_filled else R.drawable.check_empty)
         }
     }
 
@@ -104,7 +104,7 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
             profile.setImageResource(item.profile)
             name.text = item.name
             number.text = item.number
-            favorite.setImageResource(if (item.isFavorite) R.drawable.star_filled else R.drawable.star_empty)
+            favorite.setImageResource(if (item.isFavorite) R.drawable.check_filled else R.drawable.check_empty)
         }
     }
 
