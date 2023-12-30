@@ -1,14 +1,13 @@
 package com.example.week1.ui.images
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.week1.R
-
 import com.example.week1.databinding.FragmentDashboardBinding
 
 class ImageFragment : Fragment() {
@@ -31,27 +30,30 @@ class ImageFragment : Fragment() {
         val root: View = binding.root
 
 
-//        val photoList = ArrayList<Photo>()
-//        val recyclerViewPhotoAdapter = Photo(photoList)
-//
-//        binding.
 
         val photoList = mutableListOf<Photo>()
-        photoList.add(Photo("dinner", R.drawable.todaydinner))
-        photoList.add(Photo("dinner", R.drawable.todaydinner))
-        photoList.add(Photo("dinner", R.drawable.todaydinner))
-        photoList.add(Photo("dinner", R.drawable.todaydinner))
-        photoList.add(Photo("dinner", R.drawable.todaydinner))
-        photoList.add(Photo("dinner", R.drawable.todaydinner))
-        photoList.add(Photo("dinner", R.drawable.todaydinner))
+        photoList.add(Photo("frog", R.drawable.frog))
+        photoList.add(Photo("judy", R.drawable.judy))
+        photoList.add(Photo("minniemouse", R.drawable.minniemouse))
+        photoList.add(Photo("pooh", R.drawable.pooh))
+        photoList.add(Photo("santacandle", R.drawable.santacandle))
+        photoList.add(Photo("santasnoopy", R.drawable.santasnoopy))
+        photoList.add(Photo("vanellope", R.drawable.vanellope))
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = GridLayoutManager(context, 2)
         val adapter = RecyclerViewPhotoAdapter(photoList)
         recyclerView.adapter = adapter
 
+        adapter.onItemClick ={
+            val intent = Intent(requireContext(), PhotoIn::class.java)
+            intent.putExtra("photo", it)
+            startActivity(intent)
+        }
+
         return root
     }
+
 
 
 

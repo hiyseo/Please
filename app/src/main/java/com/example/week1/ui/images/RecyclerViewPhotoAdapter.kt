@@ -12,6 +12,8 @@ import com.example.week1.R
 //class RecyclerViewPhotoAdapter constructor(private val getActivity: MainActivity, private val photoList : List<Photo>) :
 class RecyclerViewPhotoAdapter (val items: MutableList<Photo>) : RecyclerView.Adapter<RecyclerViewPhotoAdapter.MyViewHolder>()
 {
+
+    var onItemClick : ((Photo) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             RecyclerViewPhotoAdapter.MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_photo_lists, parent, false)
@@ -21,12 +23,13 @@ class RecyclerViewPhotoAdapter (val items: MutableList<Photo>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: RecyclerViewPhotoAdapter.MyViewHolder, position: Int) {
+        val photo = items[position]
         holder.photoName.text = items[position].name
         holder.ivPhotoImage.setImageResource(items[position].image)
 
-//        holder.cardView.setOnClickListener {
-//            Toast.makeText(items[position].name, Toast.LENGTH_LONG).show()
-//        }
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(photo)
+        }
     }
 
     override fun getItemCount(): Int {
