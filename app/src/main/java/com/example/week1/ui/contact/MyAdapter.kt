@@ -119,10 +119,11 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
                 val child = parent.getChildAt(i)
                 val layoutParams = child.layoutParams as RecyclerView.LayoutParams
                 val top = (child.bottom + layoutParams.bottomMargin + 40).toFloat()
-                val bottom = top + 1f
 
                 val left = parent.paddingStart.toFloat()
                 val right = (parent.width - parent.paddingEnd).toFloat()
+
+                val bottom = top + 1f
 
                 c.drawRect(left, top, right, bottom, paint)
             }
