@@ -7,6 +7,7 @@ import com.example.week1.R
 
 class PhotoIn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle("사진 상세보기")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_in)
 

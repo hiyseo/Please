@@ -11,7 +11,7 @@
         android:layout_height="80dp"
         android:layout_marginStart="10dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/image_profile"
+        android:src="@drawable/image_profile1"
         android:background="@drawable/rounded_corner_profile"
         android:clipToOutline="true"
         app:layout_constraintStart_toStartOf="parent"
