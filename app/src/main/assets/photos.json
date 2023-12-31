@@ -1,0 +1,14 @@
+{
+  "code" : 200,
+  "data" : {
+    "photo_list": [
+      {"name": "frog", "resourceFile": "app/src/main/res/drawable/frog.jpeg" },
+      {"name": "judy", "resourceFile": "app/src/main/res/drawable/judy.jpeg" },
+      {"name": "minniemouse", "resourceFile": "app/src/main/res/drawable/minniemouse.jpeg" },
+      {"name": "pooh", "resourceFile": "app/src/main/res/drawable/pooh.jpeg" },
+      {"name": "santacandle", "resourceFile": "app/src/main/res/drawable/santacandle.jpeg" },
+      {"name": "santasnoopy", "resourceFile": "app/src/main/res/drawable/santasnoopy.jpeg" },
+      {"name": "vanellope", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" }
+    ]
+  }
+}
