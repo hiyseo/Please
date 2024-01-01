@@ -1,36 +1,62 @@
 package com.example.week1.ui.contact
 
+import ContactDiffCallback
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.icu.text.Transliterator.Position
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ListAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.week1.R
 import com.example.week1.databinding.ItemRvBinding
+import com.example.week1.ui.images.Photo
 
 class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    //RecyclerView.Adapter 상속
-    //ViewHolder: RecyclerView에서 각 아이템의 뷰를 보유하는 객체
 
-    //두가지 뷰 타입 나타내는 상수
+    var numberClick: NumberClick? = null
+    var favoriteClick: FavoriteClick? = null
+    var itemClick: ItemClick? = null
+//    var onItemClick : ((Photo) -> Unit)? = null
     companion object {
         private const val VIEW_TYPE_DEFAULT = 0
         private const val VIEW_TYPE_ANOTHER = 1
     }
-
     interface NumberClick {
         fun onNumberClick(view: View, position: Int)
     }
-    var numberClick: NumberClick? = null
     interface FavoriteClick {
         fun onFavoriteClick(view: View, position: Int)
     }
-    var favoriteClick: FavoriteClick? = null
+    interface ItemClick{
+        fun onItemClick(view: View, position: Int)
+    }
+
+
+    var mPosition = 0
+    fun getPosition(): Int{
+        return mPosition
+    }
+    fun setPosition(position: Int){
+        mPosition = position
+    }
+//    fun addItem(newItem: MyItem){
+//        items.add(newItem)
+//        notifyDataSetChanged()
+//    }
+//    fun removeItem(position: Int){
+//        if(position > 0){
+//            items.removeAt(position)
+//            notifyDataSetChanged()
+//        }
+//    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         //뷰 홀더를 생성하고 레이아웃을 인플레이트
@@ -55,12 +81,23 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
             is DefaultViewHolder -> holder.bindDefault(item)
             is AnotherViewHolder -> holder.bindAnother(item)
         }
+        holder.itemView.setOnClickListener{
+            itemClick?.onItemClick(it, position)
+        }
         holder.itemView.findViewById<ImageView>(R.id.favorite).setOnClickListener {
             favoriteClick?.onFavoriteClick(it, position)
         }
         holder.itemView.findViewById<TextView>(R.id.number).setOnClickListener {
             numberClick?.onNumberClick(it, position)
         }
+//        holder.itemView.setOnLongClickListener{
+//            view -> setPosition(position)
+//            Toast.makeText(view.context, "$position 아이템 롱클릭", Toast.LENGTH_SHORT).show()
+//            return@setOnLongClickListener true
+//        }
+//        holder.itemView.findViewById<ImageView>(R.id.profile).setOnClickListener{
+//            profileClick?.onProfileClick(it, position)
+//        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -88,7 +125,7 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
             profile.setImageResource(item.profile)
             name.text = item.name
             number.text = item.number
-            favorite.setImageResource(if (item.isFavorite) R.drawable.star_filled else R.drawable.star_empty)
+            favorite.setImageResource(if (item.isFavorite) R.drawable.check_filled else R.drawable.check_empty)
         }
     }
 
@@ -104,7 +141,7 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
             profile.setImageResource(item.profile)
             name.text = item.name
             number.text = item.number
-            favorite.setImageResource(if (item.isFavorite) R.drawable.star_filled else R.drawable.star_empty)
+            favorite.setImageResource(if (item.isFavorite) R.drawable.check_filled else R.drawable.check_empty)
         }
     }
 

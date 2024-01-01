@@ -1,0 +1,38 @@
+[
+  {
+    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
+    "name": "이양파1",
+    "phone": "01012341234",
+    "isFavorite": "false"
+  },
+  {
+    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
+    "name": "김당근2",
+    "phone": "01066353167",
+    "isFavorite": "false"
+  },
+  {
+    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
+    "name": "박감자3",
+    "phone": "01034781233",
+    "isFavorite": "false"
+  },
+  {
+    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
+    "name": "송마늘4",
+    "phone": "01078492341",
+    "isFavorite": "false"
+  },
+  {
+    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
+    "name": "한통깨5",
+    "phone": "01064837245",
+    "isFavorite": "false"
+  },
+  {
+    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
+    "name": "배민성",
+    "phone": "01074938345",
+    "isFavorite": "false"
+  }
+]
