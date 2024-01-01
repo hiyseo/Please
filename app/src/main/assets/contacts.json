@@ -1,38 +1,90 @@
-[
-  {
-    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
-    "name": "이양파1",
-    "phone": "01012341234",
-    "isFavorite": "false"
-  },
-  {
-    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
-    "name": "김당근2",
-    "phone": "01066353167",
-    "isFavorite": "false"
-  },
-  {
-    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
-    "name": "박감자3",
-    "phone": "01034781233",
-    "isFavorite": "false"
-  },
-  {
-    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
-    "name": "송마늘4",
-    "phone": "01078492341",
-    "isFavorite": "false"
-  },
-  {
-    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
-    "name": "한통깨5",
-    "phone": "01064837245",
-    "isFavorite": "false"
-  },
-  {
-    "profileImage": "https://github.com/hiyseo/Please/blob/main/app/src/main/res/drawable/image_profile.jpeg",
-    "name": "배민성",
-    "phone": "01074938345",
-    "isFavorite": "false"
+{
+  "data": {
+    "itemList": [
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile1.jpeg",
+        "name": "이양파1",
+        "number": "01012341234",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile2.jpeg",
+        "name": "김당근2",
+        "number": "01066353167",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile3.jpeg",
+        "name": "박감자3",
+        "number": "01034781233",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile4.jpeg",
+        "name": "송마늘4",
+        "number": "01078492341",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile5.jpeg",
+        "name": "한통깨5",
+        "number": "01064837245",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile7.jpeg",
+        "name": "박사과6",
+        "number": "01074938345",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile8.jpeg",
+        "name": "이수박7",
+        "number": "01074938345",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile9.jpeg",
+        "name": "박참외8",
+        "number": "01074938345",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile10.jpeg",
+        "name": "오렌지9",
+        "number": "01074938345",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile11.jpeg",
+        "name": "김체리10",
+        "number": "01074938345",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile12.jpeg",
+        "name": "오감귤11",
+        "number": "01074938345",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile13.jpeg",
+        "name": "홍당무12",
+        "number": "01074938345",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile14.jpeg",
+        "name": "한포도13",
+        "number": "01074938345",
+        "isFavorite": "false"
+      },
+      {
+        "profile": "https://github.com/hiyseo/Please/blob/team1/app/src/main/res/drawable/image_profile15.jpeg",
+        "name": "김망고14",
+        "number": "01074938345",
+        "isFavorite": "false"
+      }
+    ]
   }
-]
+}
