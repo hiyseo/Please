@@ -20,16 +20,12 @@ import com.example.week1.ui.images.Photo
 
 class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var numberClick: NumberClick? = null
     var favoriteClick: FavoriteClick? = null
     var itemClick: ItemClick? = null
 //    var onItemClick : ((Photo) -> Unit)? = null
     companion object {
         private const val VIEW_TYPE_DEFAULT = 0
         private const val VIEW_TYPE_ANOTHER = 1
-    }
-    interface NumberClick {
-        fun onNumberClick(view: View, position: Int)
     }
     interface FavoriteClick {
         fun onFavoriteClick(view: View, position: Int)
@@ -87,9 +83,7 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
         holder.itemView.findViewById<ImageView>(R.id.favorite).setOnClickListener {
             favoriteClick?.onFavoriteClick(it, position)
         }
-        holder.itemView.findViewById<TextView>(R.id.number).setOnClickListener {
-            numberClick?.onNumberClick(it, position)
-        }
+
 //        holder.itemView.setOnLongClickListener{
 //            view -> setPosition(position)
 //            Toast.makeText(view.context, "$position 아이템 롱클릭", Toast.LENGTH_SHORT).show()

@@ -1,5 +1,7 @@
 package com.example.week1.ui.contact
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -49,6 +51,11 @@ class ContactDetail : AppCompatActivity() {
             imageView.setImageResource(R.drawable.default_image_profile)
         }
 
+        val CallButton = findViewById<Button>(R.id.call_btn)
+        CallButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
+            startActivity(intent)
+        }
 
         // '수정' 버튼을 눌렀을 때의 로직
         val EditButton = findViewById<Button>(R.id.detail_edit_btn)

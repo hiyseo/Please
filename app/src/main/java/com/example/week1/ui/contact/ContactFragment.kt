@@ -67,14 +67,6 @@ class ContactFragment : Fragment() {
         recyclerCountText = binding.recyclerCount
         recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
 
-        adapter.numberClick = object : MyAdapter.NumberClick {
-            override fun onNumberClick(view: View, position: Int) {
-                val item = dataList[position]
-                val number: String = dataList[position].number
-                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
-                startActivity(intent)
-            }
-        }
 
         adapter.favoriteClick = object : MyAdapter.FavoriteClick {
             override fun onFavoriteClick(view: View, position: Int) {
