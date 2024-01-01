@@ -14,6 +14,7 @@ class RecyclerViewPhotoAdapter (val items: MutableList<Photo>) : RecyclerView.Ad
 {
 
     var onItemClick : ((Photo) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             RecyclerViewPhotoAdapter.MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_photo_lists, parent, false)
