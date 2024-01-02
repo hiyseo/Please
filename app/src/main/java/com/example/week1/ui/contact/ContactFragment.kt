@@ -1,5 +1,6 @@
 package com.example.week1.ui.contact
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -10,6 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.week1.R
@@ -30,6 +35,10 @@ class ContactFragment : Fragment() {
     private val binding get() = _binding!!
     private val ADD_Contact_REQUEST = 1
     private lateinit var recyclerCountText : TextView
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private var dataList = mutableListOf<MyItem>()
+    private lateinit var adapter: MyAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,8 +47,8 @@ class ContactFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val dataList = mutableListOf<MyItem>()
-
+        dataList = mutableListOf<MyItem>()
+//        val dataList = mutableListOf<MyItem>()
         val jsonString = readJsonFromAssets(requireContext(), "contacts.json")
         val jsonObject = JSONObject(jsonString)
         val dataObject = jsonObject.getJSONObject("data")
@@ -62,15 +71,10 @@ class ContactFragment : Fragment() {
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = MyAdapter(dataList)
+        adapter = MyAdapter(dataList)
         recyclerView.adapter = adapter
         val decoration = MyAdapter.AddressAdapterDecoration()
         recyclerView.addItemDecoration(decoration)
-
-        //개수 반환
-        recyclerCountText = binding.recyclerCount
-        recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
-
 
         adapter.favoriteClick = object : MyAdapter.FavoriteClick {
             override fun onFavoriteClick(view: View, position: Int) {
@@ -81,12 +85,14 @@ class ContactFragment : Fragment() {
                     dataList.removeAt(position)
                     dataList.add(0,item)
                     Toast.makeText(context, "⭐즐겨찾기 등록⭐️", Toast.LENGTH_SHORT).show()
+                    adapter.notifyItemMoved(position,0)
                     adapter.notifyDataSetChanged()
                 }
                 else{
                     dataList.removeAt(position)
                     dataList.add(dataList.size,item)
                     Toast.makeText(context, "⭐즐겨찾기 해제⭐️", Toast.LENGTH_SHORT).show()
+                    adapter.notifyItemMoved(position,0)
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -104,22 +110,39 @@ class ContactFragment : Fragment() {
                 intent.putExtra("name", item.name)
                 intent.putExtra("phone", item.number)
                 intent.putExtra("profile", item.profile)
-                startActivity(intent)
+                intent.putExtra("position",position)
+                startForResult.launch(intent)
             }
         }
+        //개수 반환
+        recyclerCountText = binding.recyclerCount
+        recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
+
         return root
+    }
+
+    val startForResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val pos = data?.getIntExtra("positionToRemove", 0)
+            Log.d("POS123", pos.toString())
+            Log.d("123241", "${dataList.size}")
+            val delitem = dataList[pos!!].name
+            dataList.removeAt(pos!!)
+//            adapter.notifyDataSetChanged()
+            Toast.makeText(context, "${delitem}이 삭제되었습니다 !", Toast.LENGTH_SHORT).show()
+            adapter.notifyDataSetChanged()
+            recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
+//            adapter.notifyItemRemoved(pos!!)
+        }
     }
     fun MutableList<MyItem>.addAndSort(newItem: MyItem) {
         add(newItem)
         sortByDescending { it.isFavorite }
     }
-//    fun parseJsonToBoardItems(json: String): ArrayList<MyItem> {
-//        val gson = Gson()
-//        val itemType = object : TypeToken<ArrayList<MyItem>>() {}.type
-//        return gson.fromJson(json, itemType)
-//    }
-//
-//    val dataList: ArrayList<MyItem> = parseJsonToBoardItems(jsonString)
+
     private fun readJsonFromAssets(context: Context, fileName: String): String {
         val jsonString: String
         try {
@@ -135,14 +158,10 @@ class ContactFragment : Fragment() {
         }
         return jsonString
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-//    private fun loadedContactsFromAssets(context: Context): List<MyItem> {
-//        val jsonString = context.assets.open("contacts.json").bufferedReader().use { it.readText() }
-//        return Gson().fromJson(jsonString, object : TypeToken<List<MyItem>>() {}.type)
-//    }
 
 }

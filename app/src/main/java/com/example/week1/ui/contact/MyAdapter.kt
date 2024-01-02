@@ -6,9 +6,11 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.icu.text.Transliterator.Position
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListAdapter
 import android.widget.TextView
@@ -22,6 +24,7 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
 
     var favoriteClick: FavoriteClick? = null
     var itemClick: ItemClick? = null
+    var deleteClick: DeleteClick? = null
 //    var onItemClick : ((Photo) -> Unit)? = null
     companion object {
         private const val VIEW_TYPE_DEFAULT = 0
@@ -32,6 +35,10 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
     }
     interface ItemClick{
         fun onItemClick(view: View, position: Int)
+    }
+
+    interface DeleteClick{
+        fun onDeleteClick(view: View, position: Int)
     }
 
 
@@ -46,12 +53,12 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
 //        items.add(newItem)
 //        notifyDataSetChanged()
 //    }
-//    fun removeItem(position: Int){
-//        if(position > 0){
-//            items.removeAt(position)
+    fun removeItem(position: Int){
+        if(position > 0){
+            items.removeAt(position)
 //            notifyDataSetChanged()
-//        }
-//    }
+        }
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -83,15 +90,10 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
         holder.itemView.findViewById<ImageView>(R.id.favorite).setOnClickListener {
             favoriteClick?.onFavoriteClick(it, position)
         }
-
-//        holder.itemView.setOnLongClickListener{
-//            view -> setPosition(position)
-//            Toast.makeText(view.context, "$position 아이템 롱클릭", Toast.LENGTH_SHORT).show()
-//            return@setOnLongClickListener true
+//        holder.itemView.findViewById<Button>(R.id.detail_delete_btn).setOnClickListener {
+//            deleteClick?.onDeleteClick(it, position)
 //        }
-//        holder.itemView.findViewById<ImageView>(R.id.profile).setOnClickListener{
-//            profileClick?.onProfileClick(it, position)
-//        }
+        Log.d("sadfasdfasdf", items.size.toString())
     }
 
     override fun getItemViewType(position: Int): Int {
