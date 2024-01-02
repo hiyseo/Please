@@ -16,8 +16,6 @@ class PhotoIn : AppCompatActivity() {
         val backButton = findViewById<Button>(R.id.buttonBack)
 
         backButton?.setOnClickListener {
-//            val intent = Intent(this, ImageFragment::class.java)
-//            startActivity(intent)
             finish()
         }
 
