@@ -12,4 +12,4 @@
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+/app/src/main/java/com/example/week1/ui/topic3/ApiKey.kt
