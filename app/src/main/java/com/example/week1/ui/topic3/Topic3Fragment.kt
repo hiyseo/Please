@@ -102,7 +102,7 @@ class Topic3Fragment : Fragment() {
 
                     weatherRecyclerView.adapter = Topic3Adapter(weatherArr)
 
-                    Toast.makeText(requireContext(), "${it[0].fcstDate}, ${it[0].fcstTime.toString().substring(0 until 2) }시의 날씨 정보입니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "${it[0].fcstDate.toString().substring(0 until 4)}년 ${it[0].fcstDate.toString().substring(4 until 6)}월 ${it[0].fcstDate.toString().substring(6 until 8)}일 ${weatherArr[0].fcstTime.substring(0 until 2) }시의 날씨", Toast.LENGTH_SHORT).show()
                 }
             }
 
