@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">week1</string>
-    <string name="title_home">tab1</string>
-    <string name="title_dashboard">tab2</string>
-    <string name="title_notifications">tab3</string>
+    <string name="title_home">연락처</string>
+    <string name="title_dashboard">갤러리</string>
+    <string name="title_notifications">날씨</string>
     <string name="recycler_count">개의 연락처</string>
 </resources>
