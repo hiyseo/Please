@@ -1,0 +1,27 @@
+{
+  "code" : 200,
+  "data" : {
+    "photo_list": [
+      {"name": "Frog", "resourceFile": "app/src/main/res/drawable/frog.jpeg" },
+      {"name": "Judy", "resourceFile": "app/src/main/res/drawable/judy.jpeg" },
+      {"name": "Minniemouse", "resourceFile": "app/src/main/res/drawable/minniemouse.jpeg" },
+      {"name": "Pooh", "resourceFile": "app/src/main/res/drawable/pooh.jpeg" },
+      {"name": "santacandle", "resourceFile": "app/src/main/res/drawable/santacandle.jpeg" },
+      {"name": "santasnoopy", "resourceFile": "app/src/main/res/drawable/santasnoopy.jpeg" },
+      {"name": "Vanellope", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "Olaf", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "Rapunzel", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "Chip", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "Thumper", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "Bruni", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "vanellope", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "vanellope", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "vanellope", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "vanellope", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "vanellope", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "vanellope", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "vanellope", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" },
+      {"name": "vanellope", "resourceFile": "app/src/main/res/drawable/vanellope.jpeg" }
+    ]
+  }
+}

@@ -1,42 +1,42 @@
 package com.example.week1.ui.images
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.week1.R
+import com.example.week1.databinding.LayoutPhotoListsBinding
 
-//class RecyclerViewPhotoAdapter constructor(private val getActivity: MainActivity, private val photoList : List<Photo>) :
-class RecyclerViewPhotoAdapter (val items: MutableList<Photo>) : RecyclerView.Adapter<RecyclerViewPhotoAdapter.MyViewHolder>()
-{
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            RecyclerViewPhotoAdapter.MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_photo_lists, parent, false)
+class RecyclerViewPhotoAdapter(private val items: MutableList<Photo>) :
+    RecyclerView.Adapter<RecyclerViewPhotoAdapter.MyViewHolder>() {
 
-        return MyViewHolder(view)
+    var onItemClick: ((Photo) -> Unit)? = null
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val binding = LayoutPhotoListsBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerViewPhotoAdapter.MyViewHolder, position: Int) {
-        holder.photoName.text = items[position].name
-        holder.ivPhotoImage.setImageResource(items[position].image)
-
-//        holder.cardView.setOnClickListener {
-//            Toast.makeText(items[position].name, Toast.LENGTH_LONG).show()
-//        }
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val photo = items[position]
+        holder.bind(photo)
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(photo)
+        }
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val photoName : TextView = itemView.findViewById(R.id.photoName)
-        val ivPhotoImage :ImageView = itemView.findViewById(R.id.ivPhotoImage)
-        val cardView : CardView = itemView.findViewById(R.id.cardView)
 
+    inner class MyViewHolder(private val binding: LayoutPhotoListsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(photo: Photo) {
+            binding.photoName.text = photo.name
+            binding.ivPhotoImage.setImageResource(photo.image)
+        }
     }
-
 }
