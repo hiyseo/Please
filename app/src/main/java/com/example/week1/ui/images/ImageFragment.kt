@@ -3,7 +3,6 @@ package com.example.week1.ui.images
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,8 +49,6 @@ class ImageFragment : Fragment() {
 
             val photo = Photo(name, drawableId)
             photoList.add(photo)
-            Log.d("name","${photoList.get(i).name}")
-            Log.d("name", "${photoList.get(i).image}")
         }
 
         val recyclerView = binding.recyclerView
