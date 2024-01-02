@@ -1,30 +1,42 @@
 package com.example.week1.ui.contact
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.week1.R
 import com.example.week1.databinding.FragmentHomeBinding
+import com.example.week1.ui.images.Photo
+import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
+import java.nio.charset.Charset
 
 
 class ContactFragment : Fragment() {
     companion object {
         var itemList = mutableListOf<MyItem>()
     }
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val ADD_Contact_REQUEST = 1
     private lateinit var recyclerCountText : TextView
-
-
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private var dataList = mutableListOf<MyItem>()
+    private lateinit var adapter: MyAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,40 +45,29 @@ class ContactFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        dataList = mutableListOf()
+        val jsonString = readJsonFromAssets(requireContext(), "contacts.json")
+        val jsonObject = JSONObject(jsonString)
+        val dataObject = jsonObject.getJSONObject("data")
+        val photoArray = dataObject.getJSONArray("itemList")
 
-//        // JSON에서 식당 데이터 로드
-//        if (loadedContacts.isEmpty()) {
-//            loadedContacts.addAll(loadedContactsFromAssets(requireContext()))
-//        }
-
-        val dataList = mutableListOf<MyItem>()
-        dataList.add(MyItem(R.drawable.image_profile1, "이양파1", "010-1111-2222", false))
-        dataList.add(MyItem(R.drawable.image_profile2, "김당근2", "010-2222-3333", false))
-        dataList.add(MyItem(R.drawable.image_profile3, "박감자3", "010-1111-2222", false))
-        dataList.add(MyItem(R.drawable.image_profile4, "송마늘4", "010-2222-3333", false))
-        dataList.add(MyItem(R.drawable.image_profile5, "한통깨5", "010-1111-2222", false))
-        dataList.add(MyItem(R.drawable.image_profile6, "박사과6", "010-2222-3333", false))
-        dataList.add(MyItem(R.drawable.image_profile7, "이수박7", "010-1111-2222", false))
-        dataList.add(MyItem(R.drawable.image_profile8, "박참외8", "010-2222-3333", false))
-        dataList.add(MyItem(R.drawable.image_profile9, "오렌지9", "010-1111-2222", false))
-        dataList.add(MyItem(R.drawable.image_profile10, "김체리10", "010-2222-3333", false))
-        dataList.add(MyItem(R.drawable.image_profile11, "오감귤11", "010-2222-3333", false))
-        dataList.add(MyItem(R.drawable.image_profile12, "홍당무12", "010-2222-3333", false))
-        dataList.add(MyItem(R.drawable.image_profile13, "한포도13", "010-2222-3333", false))
-        dataList.add(MyItem(R.drawable.image_profile14, "김망고14", "010-2222-3333", false))
-//        val dataList: List<MyItem> = loadedContactsFromAssets()
+        for (i in 0 until photoArray.length()) {
+            val photoObject = photoArray.getJSONObject(i)
+            val name = photoObject.getString("name")
+            val number = photoObject.getString("number")
+            val isFavorite = photoObject.getBoolean("isFavorite")
+            val resourceFile = photoObject.getString("profile")
+            val drawableId = resources.getIdentifier(resourceFile.substringAfterLast("/").substringBeforeLast("."), "drawable", requireActivity().packageName)
+            val item = MyItem(drawableId, name, number, isFavorite)
+            dataList.add(item)
+        }
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = MyAdapter(dataList)
+        adapter = MyAdapter(dataList)
         recyclerView.adapter = adapter
         val decoration = MyAdapter.AddressAdapterDecoration()
         recyclerView.addItemDecoration(decoration)
-
-        //개수 반환
-        recyclerCountText = binding.recyclerCount
-        recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
-
 
         adapter.favoriteClick = object : MyAdapter.FavoriteClick {
             override fun onFavoriteClick(view: View, position: Int) {
@@ -74,26 +75,25 @@ class ContactFragment : Fragment() {
                 item.toggleFavorite()
                 adapter.notifyItemChanged(position)
                 if (item.isFavorite){
+                    dataList.removeAt(position)
+                    dataList.add(0,item)
                     Toast.makeText(context, "⭐즐겨찾기 등록⭐️", Toast.LENGTH_SHORT).show()
+                    adapter.notifyItemMoved(position,0)
+                    adapter.notifyDataSetChanged()
                 }
                 else{
+                    dataList.removeAt(position)
+                    dataList.add(dataList.size,item)
                     Toast.makeText(context, "⭐즐겨찾기 해제⭐️", Toast.LENGTH_SHORT).show()
+                    adapter.notifyItemMoved(position,0)
+                    adapter.notifyDataSetChanged()
                 }
-//                dataList.removeAt(position)
-//                val newPosition = if (item.isFavorite){
-//                    0
-//                }
-//                else {
-//                    dataList.size
-//                }
-//                adapter.notifyItemMoved(position, newPosition)
-//                dataList.add(newPosition, item)
             }
         }
 
         binding.contactBtn.setOnClickListener {
             val intent = Intent(requireContext(), ContactNew::class.java)
-            startActivity(intent)
+            startActivityForResult(intent,ADD_Contact_REQUEST)
         }
 
         adapter.itemClick = object : MyAdapter.ItemClick {
@@ -103,51 +103,111 @@ class ContactFragment : Fragment() {
                 intent.putExtra("name", item.name)
                 intent.putExtra("phone", item.number)
                 intent.putExtra("profile", item.profile)
-                startActivity(intent)
+                intent.putExtra("favorite", item.isFavorite)
+                intent.putExtra("position",position)
+                startForResult.launch(intent)
             }
         }
+        //개수 반환
+        recyclerCountText = binding.recyclerCount
+        recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
+
         return root
     }
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == ADD_Contact_REQUEST && resultCode == Activity.RESULT_OK) {
-//            data?.let {
-//                val name = it.getStringExtra("name") ?: ""
-//                val phoneNumber = it.getStringExtra("phoneNumber") ?: ""
-//                val profileImage = it.getIntExtra("profileImage", R.drawable.default_image_profile) ?: R.drawable.default_image_profile
-//                val isFavorite = it.getBooleanExtra("isFavorite", false) ?: false
-//                val newItem = MyItem(profileImage,name, phoneNumber, isFavorite)  // 기본 설명 추가
-//
-//                // 확장 함수를 사용하여 식당 추가 및 정렬
-//                loadedContacts.addAndSort(newItem)
-//
-//                // 어댑터에 알림을 보내 리스트를 갱신
-//                val adapter = binding.recyclerView.adapter as? MyAdapter
-////                adapter?.submitList(loadedContacts.sortedBy { it.isFavorite })
-//                adapter?.addItem(newItem)
-//            }
-//        }
-//    }
-    fun MutableList<MyItem>.addAndSort(newItem: MyItem) {
-        add(newItem)
-        sortByDescending { it.isFavorite }
+
+    val startForResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val action = result.data?.getStringExtra("action")
+            when (action){
+                "edit" -> {
+                    val data : Intent? = result.data
+                    val originalName = data?.getStringExtra("oriname")
+                    val editedName = data?.getStringExtra("newname")
+                    val originalPhone = data?.getStringExtra("oriphone")
+                    val editedPhone = data?.getStringExtra("newphone")
+                    val editedProfile = data?.getIntExtra("profile", 0)
+                    val editedFavorite = data?.getBooleanExtra("favorite", false)
+                    val editedPosition = data?.getIntExtra("position", 0)
+                    val item = MyItem(editedProfile!!, editedName, editedPhone, editedFavorite!!)
+                    dataList.removeAt(editedPosition!!)
+                    dataList.add(editedPosition!!,item)
+                    if(originalName!=editedName) {
+                        Toast.makeText(
+                            context,
+                            "${originalName} 에서 ${editedName}으로 수정되었습니다 !",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        adapter.notifyDataSetChanged()
+                    }
+                    if(originalPhone!=editedPhone){
+                        Toast.makeText(
+                            context,
+                            "${editedName}의 전화번호가 수정되었습니다 !",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        adapter.notifyDataSetChanged()
+                    }
+                    else {
+                        Toast.makeText(context,"변경사항이 없습니다",Toast.LENGTH_SHORT)
+                    }
+//                    adapter.notifyDataSetChanged()
+                    recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
+                }
+
+                "delete" -> {
+                    val data: Intent? = result.data
+                    val pos = data?.getIntExtra("positionToRemove", 0)
+                    Log.d("POS123", pos.toString())
+                    Log.d("123241", "${dataList.size}")
+                    val delitem = dataList[pos!!].name
+                    dataList.removeAt(pos!!)
+                    Toast.makeText(context, "${delitem}이 삭제되었습니다 !", Toast.LENGTH_SHORT).show()
+                    adapter.notifyDataSetChanged()
+                    recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
+                }
+            }
+        }
     }
-//    fun parseJsonToBoardItems(json: String): ArrayList<MyItem> {
-//        val gson = Gson()
-//        val itemType = object : TypeToken<ArrayList<MyItem>>() {}.type
-//        return gson.fromJson(json, itemType)
-//    }
-//
-//    val dataList: ArrayList<MyItem> = parseJsonToBoardItems(jsonString)
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun readJsonFromAssets(context: Context, fileName: String): String {
+        val jsonString: String
+        try {
+            val inputStream: InputStream = context.assets.open(fileName)
+            val size: Int = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            inputStream.close()
+            jsonString = String(buffer, Charset.defaultCharset())
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return ""
+        }
+        return jsonString
     }
-
-//    private fun loadedContactsFromAssets(context: Context): List<MyItem> {
-//        val jsonString = context.assets.open("contacts.json").bufferedReader().use { it.readText() }
-//        return Gson().fromJson(jsonString, object : TypeToken<List<MyItem>>() {}.type)
-//    }
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ADD_Contact_REQUEST && resultCode == Activity.RESULT_OK) {
+            val name = data?.getStringExtra("name")
+            val phone = data?.getStringExtra("phone")
+            val profile = data?.getIntExtra("profile", 0)
+            val favorite = data?.getBooleanExtra("favorite", false)
+            dataList.add(
+                MyItem(
+                    R.drawable.default_image_profile,
+                    name.orEmpty(),
+                    phone.orEmpty(),
+                    favorite ?: false
+                )
+            )
+            Toast.makeText(context, "${name}이 연락처에 등록되었습니다 !", Toast.LENGTH_SHORT).show()
+            recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
+            adapter.notifyDataSetChanged()
+        }
+    }
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
 }
