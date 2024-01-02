@@ -30,7 +30,6 @@ class ContactFragment : Fragment() {
     companion object {
         var itemList = mutableListOf<MyItem>()
     }
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val ADD_Contact_REQUEST = 1
@@ -39,7 +38,6 @@ class ContactFragment : Fragment() {
     private var dataList = mutableListOf<MyItem>()
     private lateinit var adapter: MyAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,8 +45,7 @@ class ContactFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        dataList = mutableListOf<MyItem>()
-//        val dataList = mutableListOf<MyItem>()
+        dataList = mutableListOf()
         val jsonString = readJsonFromAssets(requireContext(), "contacts.json")
         val jsonObject = JSONObject(jsonString)
         val dataObject = jsonObject.getJSONObject("data")
@@ -63,10 +60,6 @@ class ContactFragment : Fragment() {
             val drawableId = resources.getIdentifier(resourceFile.substringAfterLast("/").substringBeforeLast("."), "drawable", requireActivity().packageName)
             val item = MyItem(drawableId, name, number, isFavorite)
             dataList.add(item)
-            Log.d("name", "${dataList.get(i).name}")
-            Log.d("number", "${dataList.get(i).number}")
-            Log.d("profile", "${dataList.get(i).profile}")
-            Log.d("favorite", "${dataList.get(i).isFavorite}")
         }
 
         val recyclerView = binding.recyclerView
@@ -100,7 +93,7 @@ class ContactFragment : Fragment() {
 
         binding.contactBtn.setOnClickListener {
             val intent = Intent(requireContext(), ContactNew::class.java)
-            startActivity(intent)
+            startActivityForResult(intent,ADD_Contact_REQUEST)
         }
 
         adapter.itemClick = object : MyAdapter.ItemClick {
@@ -110,6 +103,7 @@ class ContactFragment : Fragment() {
                 intent.putExtra("name", item.name)
                 intent.putExtra("phone", item.number)
                 intent.putExtra("profile", item.profile)
+                intent.putExtra("favorite", item.isFavorite)
                 intent.putExtra("position",position)
                 startForResult.launch(intent)
             }
@@ -125,22 +119,56 @@ class ContactFragment : Fragment() {
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            val pos = data?.getIntExtra("positionToRemove", 0)
-            Log.d("POS123", pos.toString())
-            Log.d("123241", "${dataList.size}")
-            val delitem = dataList[pos!!].name
-            dataList.removeAt(pos!!)
-//            adapter.notifyDataSetChanged()
-            Toast.makeText(context, "${delitem}이 삭제되었습니다 !", Toast.LENGTH_SHORT).show()
-            adapter.notifyDataSetChanged()
-            recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
-//            adapter.notifyItemRemoved(pos!!)
+            val action = result.data?.getStringExtra("action")
+            when (action){
+                "edit" -> {
+                    val data : Intent? = result.data
+                    val originalName = data?.getStringExtra("oriname")
+                    val editedName = data?.getStringExtra("newname")
+                    val originalPhone = data?.getStringExtra("oriphone")
+                    val editedPhone = data?.getStringExtra("newphone")
+                    val editedProfile = data?.getIntExtra("profile", 0)
+                    val editedFavorite = data?.getBooleanExtra("favorite", false)
+                    val editedPosition = data?.getIntExtra("position", 0)
+                    val item = MyItem(editedProfile!!, editedName, editedPhone, editedFavorite!!)
+                    dataList.removeAt(editedPosition!!)
+                    dataList.add(editedPosition!!,item)
+                    if(originalName!=editedName) {
+                        Toast.makeText(
+                            context,
+                            "${originalName} 에서 ${editedName}으로 수정되었습니다 !",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        adapter.notifyDataSetChanged()
+                    }
+                    if(originalPhone!=editedPhone){
+                        Toast.makeText(
+                            context,
+                            "${editedName}의 전화번호가 수정되었습니다 !",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        adapter.notifyDataSetChanged()
+                    }
+                    else {
+                        Toast.makeText(context,"변경사항이 없습니다",Toast.LENGTH_SHORT)
+                    }
+//                    adapter.notifyDataSetChanged()
+                    recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
+                }
+
+                "delete" -> {
+                    val data: Intent? = result.data
+                    val pos = data?.getIntExtra("positionToRemove", 0)
+                    Log.d("POS123", pos.toString())
+                    Log.d("123241", "${dataList.size}")
+                    val delitem = dataList[pos!!].name
+                    dataList.removeAt(pos!!)
+                    Toast.makeText(context, "${delitem}이 삭제되었습니다 !", Toast.LENGTH_SHORT).show()
+                    adapter.notifyDataSetChanged()
+                    recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
+                }
+            }
         }
-    }
-    fun MutableList<MyItem>.addAndSort(newItem: MyItem) {
-        add(newItem)
-        sortByDescending { it.isFavorite }
     }
 
     private fun readJsonFromAssets(context: Context, fileName: String): String {
@@ -158,10 +186,28 @@ class ContactFragment : Fragment() {
         }
         return jsonString
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ADD_Contact_REQUEST && resultCode == Activity.RESULT_OK) {
+            val name = data?.getStringExtra("name")
+            val phone = data?.getStringExtra("phone")
+            val profile = data?.getIntExtra("profile", 0)
+            val favorite = data?.getBooleanExtra("favorite", false)
+            dataList.add(
+                MyItem(
+                    R.drawable.default_image_profile,
+                    name.orEmpty(),
+                    phone.orEmpty(),
+                    favorite ?: false
+                )
+            )
+            Toast.makeText(context, "${name}이 연락처에 등록되었습니다 !", Toast.LENGTH_SHORT).show()
+            recyclerCountText.text = "${adapter.itemCount} ${getString(R.string.recycler_count)}"
+            adapter.notifyDataSetChanged()
+        }
     }
-
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
 }

@@ -1,31 +1,22 @@
 package com.example.week1.ui.contact
 
-import ContactDiffCallback
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
-import android.icu.text.Transliterator.Position
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.ListAdapter
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.week1.R
 import com.example.week1.databinding.ItemRvBinding
-import com.example.week1.ui.images.Photo
 
 class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var favoriteClick: FavoriteClick? = null
     var itemClick: ItemClick? = null
-    var deleteClick: DeleteClick? = null
-//    var onItemClick : ((Photo) -> Unit)? = null
     companion object {
         private const val VIEW_TYPE_DEFAULT = 0
         private const val VIEW_TYPE_ANOTHER = 1
@@ -36,31 +27,6 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
     interface ItemClick{
         fun onItemClick(view: View, position: Int)
     }
-
-    interface DeleteClick{
-        fun onDeleteClick(view: View, position: Int)
-    }
-
-
-    var mPosition = 0
-    fun getPosition(): Int{
-        return mPosition
-    }
-    fun setPosition(position: Int){
-        mPosition = position
-    }
-//    fun addItem(newItem: MyItem){
-//        items.add(newItem)
-//        notifyDataSetChanged()
-//    }
-    fun removeItem(position: Int){
-        if(position > 0){
-            items.removeAt(position)
-//            notifyDataSetChanged()
-        }
-    }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         //뷰 홀더를 생성하고 레이아웃을 인플레이트
         val inflater = LayoutInflater.from(parent.context)
@@ -90,10 +56,6 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
         holder.itemView.findViewById<ImageView>(R.id.favorite).setOnClickListener {
             favoriteClick?.onFavoriteClick(it, position)
         }
-//        holder.itemView.findViewById<Button>(R.id.detail_delete_btn).setOnClickListener {
-//            deleteClick?.onDeleteClick(it, position)
-//        }
-        Log.d("sadfasdfasdf", items.size.toString())
     }
 
     override fun getItemViewType(position: Int): Int {

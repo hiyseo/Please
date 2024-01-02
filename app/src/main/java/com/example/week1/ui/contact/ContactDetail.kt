@@ -1,5 +1,6 @@
 package com.example.week1.ui.contact
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -20,9 +21,8 @@ class ContactDetail : AppCompatActivity() {
         val name = intent.getStringExtra("name")
         val phone = intent.getStringExtra("phone")
         val profile = intent.getIntExtra("profile", 0)
+        val favorite = intent.getBooleanExtra("favorite",false)
         val position = intent.getIntExtra("position",0)
-        Log.d("position","${position}")
-
 
         for (i in 0 until ContactFragment.itemList.size) {
             if (ContactFragment.itemList[i].name == name) {
@@ -32,18 +32,12 @@ class ContactDetail : AppCompatActivity() {
         }
 
         setTitle("'$name' 연락처 상세")
-//        var editToggle = false
-//        val editBtn : Button = findViewById(R.id.detail_edit_btn)
         val deleteBtn : Button = findViewById(R.id.detail_delete_btn)
-
+        val EditButton = findViewById<Button>(R.id.detail_edit_btn)
         val nameInput : EditText = findViewById(R.id.detail_name_input)
         val phoneInput : EditText = findViewById(R.id.detail_phone_input)
         val imageView : ImageView = findViewById(R.id.profile)
 
-//
-//        nameInput.isEnabled = false
-//        phoneInput.isEnabled = false
-//
         nameInput.setText("$name")
         phoneInput.setText("$phone")
         val profileResourceName = "${profile}" // 예: "image_profile1"
@@ -62,33 +56,35 @@ class ContactDetail : AppCompatActivity() {
         }
 
         // '수정' 버튼을 눌렀을 때의 로직
-        val EditButton = findViewById<Button>(R.id.detail_edit_btn)
-
         EditButton.setOnClickListener {
-//            val name = findViewById<EditText>(R.id.new_name_input).text.toString()
-//            val phoneNumber = findViewById<EditText>(R.id.new_phone_input).text.toString()
-//            val profileImage = R.drawable.image_profile
-//            val isFavorite = false
+            val name = name
+            val phone = phone
+            val newname = findViewById<EditText>(R.id.detail_name_input).text.toString()
+            val newphoneNumber = findViewById<EditText>(R.id.detail_phone_input).text.toString()
+            val profileImage = profile
+            val isFavorite = favorite
+            val insertposition = position
+            val intent = Intent()
+            intent.putExtra("action","edit")
+            intent.putExtra("oriname", name)
+            intent.putExtra("newname",newname)
+            intent.putExtra("oriphone", phone)
+            intent.putExtra("newphone", newphoneNumber)
+            intent.putExtra("profile", profileImage)
+            intent.putExtra("favorite", isFavorite)
+            intent.putExtra("position", insertposition)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
         }
 
-//        val adapter = MyAdapter(ContactFragment.dataList)
         deleteBtn.setOnClickListener {
             val positionToRemove = position
             val intent = Intent()
+            intent.putExtra("action", "delete")
             intent.putExtra("positionToRemove", positionToRemove)
             setResult(RESULT_OK,intent)
             finish()
         }
-
-        // '삭제' 버튼을 눌렀을 때의 로직
-//        val adapter = MyAdapter(ContactFragment.dataList)
-//        adapter.deleteClick = object : MyAdapter.DeleteClick{
-//            override fun onDeleteClick(view: View, position: Int) {
-//                ContactFragment.itemList.removeAt(position)
-//                adapter.notifyDataSetChanged()
-//            }
-//            recyclerView.adapter = adapter
-//        }
 
     }
 
