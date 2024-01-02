@@ -4,34 +4,29 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.week1.R
 import com.example.week1.databinding.ItemRvBinding
 
 class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    //RecyclerView.Adapter 상속
-    //ViewHolder: RecyclerView에서 각 아이템의 뷰를 보유하는 객체
 
-    //두가지 뷰 타입 나타내는 상수
+    var favoriteClick: FavoriteClick? = null
+    var itemClick: ItemClick? = null
     companion object {
         private const val VIEW_TYPE_DEFAULT = 0
         private const val VIEW_TYPE_ANOTHER = 1
     }
-
-    interface NumberClick {
-        fun onNumberClick(view: View, position: Int)
-    }
-    var numberClick: NumberClick? = null
     interface FavoriteClick {
         fun onFavoriteClick(view: View, position: Int)
     }
-    var favoriteClick: FavoriteClick? = null
-
+    interface ItemClick{
+        fun onItemClick(view: View, position: Int)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         //뷰 홀더를 생성하고 레이아웃을 인플레이트
         val inflater = LayoutInflater.from(parent.context)
@@ -55,11 +50,11 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
             is DefaultViewHolder -> holder.bindDefault(item)
             is AnotherViewHolder -> holder.bindAnother(item)
         }
+        holder.itemView.setOnClickListener{
+            itemClick?.onItemClick(it, position)
+        }
         holder.itemView.findViewById<ImageView>(R.id.favorite).setOnClickListener {
             favoriteClick?.onFavoriteClick(it, position)
-        }
-        holder.itemView.findViewById<TextView>(R.id.number).setOnClickListener {
-            numberClick?.onNumberClick(it, position)
         }
     }
 
@@ -88,7 +83,7 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
             profile.setImageResource(item.profile)
             name.text = item.name
             number.text = item.number
-            favorite.setImageResource(if (item.isFavorite) R.drawable.star_filled else R.drawable.star_empty)
+            favorite.setImageResource(if (item.isFavorite) R.drawable.check_filled else R.drawable.check_empty)
         }
     }
 
@@ -104,7 +99,7 @@ class MyAdapter (val items: MutableList<MyItem>) : RecyclerView.Adapter<Recycler
             profile.setImageResource(item.profile)
             name.text = item.name
             number.text = item.number
-            favorite.setImageResource(if (item.isFavorite) R.drawable.star_filled else R.drawable.star_empty)
+            favorite.setImageResource(if (item.isFavorite) R.drawable.check_filled else R.drawable.check_empty)
         }
     }
 

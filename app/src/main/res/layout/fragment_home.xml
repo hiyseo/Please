@@ -4,24 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="?attr/actionBarSize"
     tools:context=".ui.contact.ContactFragment">
+
+    <TextView
+        android:id="@+id/recycler_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/recycler_count"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:background="@color/purple_200"
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:text="즐겨찾기♡"
+        android:textColor="?attr/colorOnPrimary"
+        android:textAlignment="viewEnd"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/recycler_count"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/item_rv" />
 
     <android.widget.Button
         android:id="@+id/contactBtn"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/roundbtn"
         android:gravity="center"
         android:text="+"

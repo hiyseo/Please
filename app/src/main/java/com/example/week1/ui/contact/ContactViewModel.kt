@@ -7,10 +7,7 @@ import androidx.lifecycle.ViewModel
 
 class ContactViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "연락처"
-    }
-
-    val text: LiveData<String> = _text
+    private val _dataList = MutableLiveData<List<MyItem>>()
+    val dataList: LiveData<List<MyItem>> = _dataList
 
 }
