@@ -5,26 +5,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.week1.databinding.LayoutWeatherListsBinding
 
-class Topic3Adapter(var items: Array<Weather>) : RecyclerView.Adapter<Topic3Adapter.ViewHolder>() {
+class Topic3Adapter(private val items: Array<Weather>) : RecyclerView.Adapter<Topic3Adapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            LayoutWeatherListsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = LayoutWeatherListsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.setItem(item)
+        holder.bind(item)
     }
 
     override fun getItemCount() = items.size
 
-    inner class ViewHolder(private val binding: LayoutWeatherListsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun setItem(item: Weather) {
+    inner class ViewHolder(private val binding: LayoutWeatherListsBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Weather) {
             binding.apply {
-                tvTime.text = item.fcstTime.substring(0 until 2) + "시"
+                tvTime.text = item.fcstTime
                 tvRainType.text = getRainType(item.rainType)
                 tvHumidity.text = item.humidity
                 tvSky.text = getSky(item.sky)
@@ -35,7 +32,7 @@ class Topic3Adapter(var items: Array<Weather>) : RecyclerView.Adapter<Topic3Adap
 
     private fun getRainType(rainType: String): String {
         return when (rainType) {
-            "0" -> "안와요"
+            "0" -> "없음"
             "1" -> "비"
             "2" -> "비/눈"
             "3" -> "눈"
