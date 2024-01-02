@@ -3,23 +3,20 @@ package com.example.week1.ui.contact
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.week1.R
 import com.example.week1.databinding.FragmentHomeBinding
-import com.example.week1.ui.images.Photo
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -63,7 +60,7 @@ class ContactFragment : Fragment() {
         }
 
         val recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = MyAdapter(dataList)
         recyclerView.adapter = adapter
         val decoration = MyAdapter.AddressAdapterDecoration()

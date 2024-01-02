@@ -13,7 +13,7 @@
         android:id="@+id/tvDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="mm/dd의 날씨"
+        android:text="mm/dd 의 날씨"
         android:textSize="30dp"
         android:textColor="@color/black"
         android:layout_margin="10dp"
@@ -29,6 +29,13 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/location_Textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="대전광역시 유성구 온천2동"
+        android:layout_margin="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weatherRecyclerView"
