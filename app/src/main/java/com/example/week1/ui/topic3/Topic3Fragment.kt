@@ -87,7 +87,18 @@ class Topic3Fragment : Fragment() {
                         index++
                     }
 
-                    for (i in 0..5) weatherArr[i].fcstTime = it[i].fcstTime.toString()
+                    for (i in 0..5) {
+                        if(it[i].fcstTime == 0){
+                            weatherArr[i].fcstTime = "00"
+                        }
+                        if(it[i].fcstTime < 1000){
+                            weatherArr[i].fcstTime = "0" + it[i].fcstTime.toString()
+                        }
+                        else {
+                            weatherArr[i].fcstTime = it[i].fcstTime.toString()
+                        }
+//                        Log.d("time", it[i] )
+                    }
 
                     weatherRecyclerView.adapter = Topic3Adapter(weatherArr)
 

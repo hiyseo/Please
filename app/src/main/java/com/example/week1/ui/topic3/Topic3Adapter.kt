@@ -21,7 +21,7 @@ class Topic3Adapter(private val items: Array<Weather>) : RecyclerView.Adapter<To
     inner class ViewHolder(private val binding: LayoutWeatherListsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Weather) {
             binding.apply {
-                tvTime.text = item.fcstTime
+                tvTime.text = item.fcstTime.substring(0 until 2) + "시"
                 tvRainType.text = getRainType(item.rainType)
                 tvHumidity.text = item.humidity
                 tvSky.text = getSky(item.sky)
@@ -36,6 +36,9 @@ class Topic3Adapter(private val items: Array<Weather>) : RecyclerView.Adapter<To
             "1" -> "비"
             "2" -> "비/눈"
             "3" -> "눈"
+            "5" -> "빗방울"
+            "6" -> "빗방울눈날림"
+            "7" -> "눈날림"
             else -> "오류 rainType : $rainType"
         }
     }
