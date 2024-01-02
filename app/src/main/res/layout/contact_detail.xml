@@ -12,9 +12,9 @@
         android:id="@+id/profile"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginStart="100dp"
+        android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
-        android:src="@drawable/default_image_profile"
+        android:src="@drawable/image_profile1"
         android:background="@drawable/rounded_corner_profile"
         android:clipToOutline="true"
         android:layout_marginTop="30dp"
@@ -25,11 +25,11 @@
         android:id="@+id/detail_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
         android:layout_margin="20dp"
-        android:textStyle="bold"
+        android:text="이름"
         android:textColor="@color/purple_700"
-        android:text="이름" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/detail_name_input"
@@ -46,11 +46,11 @@
         android:id="@+id/detail_phone_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
         android:layout_margin="20dp"
-        android:textStyle="bold"
+        android:text="전화번호"
         android:textColor="@color/purple_700"
-        android:text="전화번호" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/detail_phone_input"
@@ -58,48 +58,63 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="10dp"
         android:inputType="phone"
         android:digits="0123456789"
         android:hint=" '-' 없이 숫자만 입력하세요 "
         android:text="01011112222"
         android:imeOptions="actionNext" />
 
-    <android.widget.Button
-        android:id="@+id/detail_edit_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:background="@drawable/btn"
-        android:layout_gravity="center"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <android.widget.Button
-        android:id="@+id/detail_delete_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:background="@drawable/btn"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/detail_edit_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <android.widget.Button
+            android:id="@+id/detail_edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn"
+            android:padding="2dp"
+            android:text="Save"
+            android:textSize="15sp" />
 
-    <android.widget.Button
-        android:id="@+id/call_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Call"
-        android:background="@drawable/btn"
-        android:layout_gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/detail_edit_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <android.widget.Button
+            android:id="@+id/detail_delete_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn"
+            android:padding="2dp"
+            android:text="Delete"
+            android:textSize="15sp" />
+
+        <android.widget.Button
+            android:id="@+id/call_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn"
+            android:padding="2dp"
+            android:text="Call"
+            android:textSize="15sp"
+
+            />
+
+    </LinearLayout>
 
 </LinearLayout>
+
+
+
