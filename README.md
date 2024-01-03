@@ -21,7 +21,7 @@
 
 ### Tab1 | Contact
 
-![Frame 1.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/60207201-4085-492c-b90c-6e3fcc46b74d/Frame_1.png)
+![Frame 1](https://github.com/hiyseo/Please/assets/149778119/c76cf749-1fac-47bb-96c3-c9ffa3696dfe)
 
 **프로필, 이름, 연락처를 한눈에 볼 수 있는 탭**
 
@@ -36,6 +36,9 @@
 
 ### Tab2 | Image
 
+![Frame 2](https://github.com/hiyseo/Please/assets/149778119/ca1917f8-bc7b-474b-b7b5-abf3a28f500e)
+
+
 **캐릭터들의 사진과 이름이 담겨져 있는 탭**
 
 - RecyclerView 형태로 CardView들로 정렬되어 있음
@@ -43,6 +46,9 @@
 - 뒤로 이동하는 BACK 버튼이 있음
 
 ### Tab3 | Weather
+
+![KakaoTalk_Photo_2024-01-03-21-02-35 007jpeg 1](https://github.com/hiyseo/Please/assets/149778119/222d39c6-af23-4522-b8e5-ed5cca019548)
+
 
 **최신 날씨 정보를 불러오는 탭**
 
