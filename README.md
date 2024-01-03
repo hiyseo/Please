@@ -4,7 +4,6 @@
 
 **프로필, 이름, 연락처를 한눈에 볼 수 있는 탭**
 
-![연락처](https://github.com/hiyseo/Please/assets/94510731/8b47b751-0318-48fa-9fb3-cd12ee0da01f)
 - RecyclerView 형태로 사진, 이름, 전화번호 및 즐겨찾기 아이콘 보임
 - 연락처 상단에 연락처 개수를 알려주는 Textview 위치
 - 연락처 클릭 시 사진, 이름, 전화번호를 볼 수 있는 상세정보 Fragment로 이동
