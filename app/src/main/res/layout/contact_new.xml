@@ -24,6 +24,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint=" 이름을 입력하세요 "
+        android:textStyle="normal"
         android:maxLines="1"
         android:imeOptions="actionNext" />
 
@@ -45,6 +46,7 @@
         android:layout_marginBottom="40dp"
         android:inputType="phone"
         android:digits="0123456789"
+        android:textStyle="normal"
         android:hint=" '-' 없이 숫자만 입력하세요 "
         android:imeOptions="actionNext" />
 

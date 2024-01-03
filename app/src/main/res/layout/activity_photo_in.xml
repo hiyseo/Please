@@ -27,6 +27,7 @@
         android:layout_marginBottom="8dp"
         android:text="frog"
         android:textSize="30sp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/photoIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -34,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.91" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
