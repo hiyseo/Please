@@ -23,16 +23,16 @@
             android:layout_width="match_parent"
             android:layout_height="125dp"/>
 
-        <TextView
+        <android.widget.TextView
             android:id="@+id/photoName"
-            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
             android:text="dinner"
             android:textColor="@color/black"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

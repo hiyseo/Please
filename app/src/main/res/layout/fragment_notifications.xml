@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:text="mm/dd 의 날씨"
         android:textSize="30dp"
+        android:textStyle="normal"
         android:textColor="@color/black"
         android:layout_margin="10dp"
         android:gravity="center"/>
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:text="에러 : "
         android:textSize="30dp"
+        android:textStyle="normal"
         android:textColor="@color/black"
         android:layout_margin="10dp"
         android:gravity="center"
@@ -33,7 +35,8 @@
         android:id="@+id/location_Textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="대전광역시 유성구 온천2동"
+        android:text="▼ 대전광역시 유성구 온천2동"
+        android:textStyle="normal"
         android:layout_margin="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -48,6 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="새로고침"/>
+        android:background="@color/skyblue_100"
+        android:text="새로고침"
+        android:textStyle="normal"/>
 
 </LinearLayout>
