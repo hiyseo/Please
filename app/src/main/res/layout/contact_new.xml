@@ -8,7 +8,7 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <TextView
+    <android.widget.TextView
         android:id="@+id/new_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,18 +17,19 @@
         android:textStyle="bold"
         android:text="이름" />
 
-    <EditText
+    <android.widget.EditText
         android:id="@+id/new_name_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint=" 이름을 입력하세요 "
+        android:textColor="@color/black"
         android:textStyle="normal"
         android:maxLines="1"
         android:imeOptions="actionNext" />
 
-    <TextView
+    <android.widget.TextView
         android:id="@+id/new_phone_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +38,7 @@
         android:textStyle="bold"
         android:text="전화번호" />
 
-    <EditText
+    <android.widget.EditText
         android:id="@+id/new_phone_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,17 +48,18 @@
         android:inputType="phone"
         android:digits="0123456789"
         android:textStyle="normal"
+        android:textColor="@color/black"
         android:hint=" '-' 없이 숫자만 입력하세요 "
         android:imeOptions="actionNext" />
 
     <android.widget.Button
         android:id="@+id/new_save_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:background="@drawable/btn"
+        android:layout_width="104dp"
+        android:layout_height="61dp"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
+        android:text="Save"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
