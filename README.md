@@ -21,6 +21,8 @@
 
 ### Tab1 | Contact
 
+![Frame 1.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/60207201-4085-492c-b90c-6e3fcc46b74d/Frame_1.png)
+
 **프로필, 이름, 연락처를 한눈에 볼 수 있는 탭**
 
 - RecyclerView 형태로 사진, 이름, 전화번호 및 즐겨찾기 아이콘 보임
