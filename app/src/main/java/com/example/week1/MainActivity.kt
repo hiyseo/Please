@@ -5,55 +5,33 @@ import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.week1.databinding.ActivityMainBinding
-import com.example.week1.ui.contact.MyItem
-import com.example.week1.ui.contact.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
+    private val tabTextList = listOf("연락처","갤러리","날씨")
+    private val tabIconList = listOf(R.drawable.baseline_account_box_24, R.drawable.baseline_auto_awesome_mosaic_24, R.drawable.baseline_cloud_24)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        navController = findNavController(R.id.pager)
+
         binding.pager.adapter = ViewPagerAdapter(this)
 
-        binding.pager.registerOnPageChangeCallback(
-            object : ViewPager2.OnPageChangeCallback(){
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    binding.navView.menu.getItem(position).isChecked = true
-                }
-            }
-        )
-        binding.navView.setOnNavigationItemReselectedListener { this }
-
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.navigation_home -> {
-                binding.pager.currentItem = 0
-                return true
-            }
-            R.id.navigation_dashboard -> {
-                binding.pager.currentItem = 1
-                return true
-            }
-            R.id.navigation_notifications -> {
-                binding.pager.currentItem = 2
-                return true
-            }
-            else -> {
-                return false
-            }
-        }
+        TabLayoutMediator(binding.navView, binding.pager) { tab, pos ->
+            tab.text = tabTextList[pos]
+            tab.setIcon(tabIconList[pos])
+        }.attach()
     }
 }
