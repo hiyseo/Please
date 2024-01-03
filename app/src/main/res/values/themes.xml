@@ -3,7 +3,7 @@
     <style name="Theme.Week1" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/skyblue_100</item>
-        <item name="colorPrimaryVariant">#58B7F3</item>
+        <item name="colorPrimaryVariant">@color/skyblue_100</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
