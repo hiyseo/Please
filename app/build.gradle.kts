@@ -68,6 +68,7 @@ dependencies {
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.19")
     //OkHttp
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.google.ar.sceneform:filament-android:1.17.1")

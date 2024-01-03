@@ -1,6 +1,7 @@
 package com.example.week1
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +15,6 @@ import com.example.week1.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private val tabTextList = listOf("연락처","갤러리","날씨")
