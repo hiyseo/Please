@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.topic3.Topic3Fragment"
     android:gravity="center"
-    android:paddingBottom="?attr/actionBarSize"
     android:orientation="vertical">
 
     <TextView
